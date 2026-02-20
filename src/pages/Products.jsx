@@ -26,13 +26,18 @@ export default function Products() {
     if (cat) setActiveCategory(cat);
   }, [searchParams]);
 
+  // ═══════════════════════════════════════════
+  // MEMOIZED FILTERING (useMemo optimization)
+  // ═══════════════════════════════════════════
   const filtered = useMemo(() => {
     let list = [...products];
 
+    // Filter by category
     if (activeCategory !== "All") {
       list = list.filter(p => p.category === activeCategory);
     }
 
+    // Filter by search query
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(p =>
@@ -42,6 +47,7 @@ export default function Products() {
       );
     }
 
+    // Sort results
     switch (sort) {
       case "price-asc":  list.sort((a, b) => a.rawPrice - b.rawPrice); break;
       case "price-desc": list.sort((a, b) => b.rawPrice - a.rawPrice); break;

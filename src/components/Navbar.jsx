@@ -37,6 +37,7 @@ export default function Navbar() {
           <nav className="se-navbar__links">
             <Link to="/" className={`nav-link ${isActive("/") ? "active" : ""}`}>Home</Link>
             <Link to="/products" className={`nav-link ${isActive("/products") ? "active" : ""}`}>Products</Link>
+            <Link to="/analytics" className={`nav-link ${isActive("/analytics") ? "active" : ""}`}>Analytics</Link>
             <Link to="/products?cat=Electronics" className="nav-link">Electronics</Link>
             <Link to="/products?cat=Audio" className="nav-link">Audio</Link>
           </nav>
@@ -96,6 +97,9 @@ export default function Navbar() {
           </Link>
           <Link to="/products" className={`mobile-link ${isActive("/products") ? "active" : ""}`}>
             <span>All Products</span><ChevronRight />
+          </Link>
+          <Link to="/analytics" className={`mobile-link ${isActive("/analytics") ? "active" : ""}`}>
+            <span>Analytics</span><ChevronRight />
           </Link>
           <Link to="/products?cat=Electronics" className="mobile-link">
             <span>Electronics</span><ChevronRight />
