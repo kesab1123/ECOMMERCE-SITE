@@ -321,3 +321,87 @@
 @media (max-width: 480px) {
   .se-navbar__inner { padding: 0 20px; }
 }
+/* ── Dark Nav ─────────────────────────────── */
+.se-navbar.dark-nav {
+  background: rgba(10, 10, 10, 0.96);
+  border-bottom-color: rgba(201,168,76,0.2);
+}
+.se-navbar.dark-nav .nav-link,
+.se-navbar.dark-nav .action-btn,
+.se-navbar.dark-nav .logo-text { color: #ffffff; }
+.se-navbar.dark-nav .nav-link:hover,
+.se-navbar.dark-nav .nav-link.active { color: var(--gold); }
+.se-navbar.dark-nav .nav-link.active::after { background: var(--gold); }
+.se-navbar.dark-nav .action-btn:hover { background: rgba(255,255,255,0.1); }
+
+/* ── Nav Badge (wishlist inline count) ───────*/
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  background: var(--gold);
+  color: var(--black);
+  border-radius: var(--radius-full);
+  font-size: 0.62rem;
+  font-weight: 800;
+  margin-left: 4px;
+  padding: 0 4px;
+}
+
+/* ── User Avatar ─────────────────────────────*/
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--black);
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+/* ── Mobile Theme Toggle ─────────────────────*/
+.mobile-theme-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--black);
+  text-align: left;
+}
+.dark-mobile .mobile-link,
+.dark-mobile .mobile-theme-toggle { color: var(--white); }
+
+/* ── Mobile User Section ─────────────────────*/
+.mobile-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--off-white);
+}
+.mobile-user__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--black);
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-user__name { font-weight: 600; font-size: 0.95rem; color: var(--black); }
+.mobile-user__tier { font-size: 0.78rem; color: var(--gold); font-weight: 500; }

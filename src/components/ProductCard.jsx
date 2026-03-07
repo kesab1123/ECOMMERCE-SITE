@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "../context/CartContext";
+import { toggleWishlist } from "../redux/slices/wishlistSlice";
 import "./ProductCard.css";
 
 export default function ProductCard({ product, delay = 0 }) {
@@ -7,12 +9,25 @@ export default function ProductCard({ product, delay = 0 }) {
   const [hovered, setHovered] = useState(false);
   const [added, setAdded] = useState(false);
 
+  // ── Redux: wishlist dispatch + read state
+  const dispatch = useDispatch();
+  const isWishlisted = useSelector(state =>
+    state.wishlist.items.some(item => item.id === product.id)
+  );
+
   const handleAdd = (e) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
+  };
+
+  // ── Redux dispatch: toggleWishlist action
+  const handleWishlist = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(toggleWishlist(product));
   };
 
   const discount = product.originalPrice
@@ -56,10 +71,14 @@ export default function ProductCard({ product, delay = 0 }) {
           )}
         </div>
 
-        {/* Quick Actions */}
+        {/* Quick Actions — wishlist uses Redux dispatch */}
         <div className={`product-card__quick-actions ${hovered ? "visible" : ""}`}>
-          <button className="quick-btn" aria-label="Wishlist">
-            <HeartIcon />
+          <button
+            className={`quick-btn ${isWishlisted ? "wishlisted" : ""}`}
+            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            onClick={handleWishlist}
+          >
+            <HeartIcon filled={isWishlisted} />
           </button>
           <button className="quick-btn" aria-label="Quick View">
             <EyeIcon />
@@ -99,15 +118,9 @@ export default function ProductCard({ product, delay = 0 }) {
             onClick={handleAdd}
           >
             {added ? (
-              <>
-                <CheckIcon />
-                <span>Added</span>
-              </>
+              <><CheckIcon /><span>Added</span></>
             ) : (
-              <>
-                <CartPlusIcon />
-                <span>Add</span>
-              </>
+              <><CartPlusIcon /><span>Add</span></>
             )}
           </button>
         </div>
@@ -116,8 +129,8 @@ export default function ProductCard({ product, delay = 0 }) {
   );
 }
 
-function HeartIcon() {
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
+function HeartIcon({ filled }) {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
 }
 function EyeIcon() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;

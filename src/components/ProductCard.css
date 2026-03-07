@@ -250,3 +250,9 @@
   color: var(--white);
   pointer-events: none;
 }
+/* ── Wishlisted state ─────────────────────── */
+.quick-btn.wishlisted {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
